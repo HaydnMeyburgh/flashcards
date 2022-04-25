@@ -10,18 +10,13 @@ export const quizzesSlice = createSlice({
   reducers: {
     //action creator - this will add the quizz object to the initial state quizzes object
     addQuiz: (state, action) => {
-        state.quizzes[action.payload.id] = {
-        id: action.payload.id,
-        name: action.payload.name,
-        topicId: action.payload.topicId,
-        cardIds: []
-        }
+      state.quizzes[action.payload.id] = action.payload;
     }
   }
 })
 export const thunkActionCreator = (payload) => {
   return (dispatch) => {
-    dispatch(addQuiz({ id: payload.id, name: payload.name, topicId: payload.topicId, cardIds: payload.cardIds })); 
+    dispatch(quizzesSlice.actions.addQuiz(payload)); 
     dispatch(addQuizId({ topicId: payload.topicId, quizIds: payload.id})); 
   }
 }
